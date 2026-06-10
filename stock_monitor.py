@@ -23,7 +23,7 @@ import yfinance as yf
 # 全局配置 — 按需修改
 # =============================================================================
 
-WATCHLIST: list[str] = ["MP","UAMY", "NVDA"，"TSM","AVGO", "MRVL" "AXTI"]
+WATCHLIST: list[str] = ["MP", "UAMY", "LAC", "NVDA", "TSM", "AVGO", "MRVL", "AXTI"]
 
 # Discord / 飞书 / 钉钉 Webhook URL（留空或占位符则仅打印到控制台）
 WEBHOOK_URL: str = "https://discord.com/api/webhooks/1514355512052023519/g3OaIJXVoWxC0mqquk5PyWS8AkVNsvxXpvlYQD6eTtSfKyRH3NZQpS6Nl9zt8WquHMG0"
