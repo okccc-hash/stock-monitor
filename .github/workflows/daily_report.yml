@@ -2,9 +2,8 @@ name: Daily Market Monitor
 
 on:
   schedule:
-    # 国际标准时间 (UTC) 13:00 = 温哥华时间 早上 06:00
     - cron: '0 13 * * *'
-  workflow_dispatch: # 允许手动点击触发
+  workflow_dispatch:
 
 jobs:
   run-monitor:
@@ -24,8 +23,5 @@ jobs:
         pip install yfinance schedule requests
 
     - name: Run script instantly
-      env:
-        # 💡 绝招：直接在这里用纯英文逗号写你的股票，没有任何中文字符风险！
-        WATCHLIST: "MP,UAMY,LAC,NVDA,TSM,AVGO,MRVL,AXTI"
       run: |
         python stock_monitor.py --now
