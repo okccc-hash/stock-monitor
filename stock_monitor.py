@@ -561,6 +561,7 @@ def analyze_ticker(symbol: str) -> dict[str, Any]:
 def run_monitor() -> None:
     """执行一次完整监控并推送简报。"""
     logger.info("=" * 50)
+    logger.info("【测试暗号】我的温哥华特供 8 股版本正在运行！！！")
     logger.info("开始执行股票监控，标的: %s", WATCHLIST)
 
     results: list[dict[str, Any]] = []
