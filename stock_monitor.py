@@ -23,9 +23,10 @@ import yfinance as yf
 # 全局配置 — 按需修改
 # =============================================================================
 
+# 💡 已经在此处锁定你最核心的 8 只自选股（涵盖关键矿产与半导体架构）
 WATCHLIST: list[str] = ["MP", "UAMY", "LAC", "NVDA", "TSM", "AVGO", "MRVL", "AXTI"]
 
-# Discord / 飞书 / 钉钉 Webhook URL（留空或占位符则仅打印到控制台）
+# Discord Webhook URL
 WEBHOOK_URL: str = "https://discord.com/api/webhooks/1514355512052023519/g3OaIJXVoWxC0mqquk5PyWS8AkVNsvxXpvlYQD6eTtSfKyRH3NZQpS6Nl9zt8WquHMG0"
 
 # 推送渠道: "discord" | "feishu" | "dingtalk"
@@ -68,20 +69,16 @@ def _load_dotenv() -> None:
 def apply_env_overrides() -> None:
     """允许 .env / GitHub Actions / shell 环境变量覆盖顶部配置。"""
     _load_dotenv()
-    global WEBHOOK_URL, WEBHOOK_TYPE, WATCHLIST
+    global WEBHOOK_URL, WEBHOOK_TYPE
     global PRICE_CHANGE_THRESHOLD, VOLUME_SPIKE_MULTIPLIER
 
     if url := os.environ.get("WEBHOOK_URL", "").strip():
         WEBHOOK_URL = url
     if hook_type := os.environ.get("WEBHOOK_TYPE", "").strip():
         WEBHOOK_TYPE = hook_type
-    if watchlist_raw := os.environ.get("WATCHLIST", "").strip():
-        try:
-            parsed = json.loads(watchlist_raw)
-            if isinstance(parsed, list) and parsed:
-                WATCHLIST = [str(s).strip().upper() for s in parsed if str(s).strip()]
-        except json.JSONDecodeError:
-            WATCHLIST = [s.strip().upper() for s in watchlist_raw.split(",") if s.strip()]
+    
+    # ✂️ 彻底切断切断 WATCHLIST 的系统变量覆盖逻辑，捍卫代码最高指挥权！
+    
     if threshold := os.environ.get("PRICE_CHANGE_THRESHOLD", "").strip():
         PRICE_CHANGE_THRESHOLD = float(threshold)
     if multiplier := os.environ.get("VOLUME_SPIKE_MULTIPLIER", "").strip():
@@ -202,7 +199,7 @@ def _parse_news_timestamp(item: dict[str, Any]) -> datetime | None:
 
 
 def _extract_news_fields(item: dict[str, Any]) -> tuple[str, str]:
-    """提取标题与链接，兼容 yfinance 新旧数据结构。"""
+    """提取标题与链接，兼容 yfinance 新旧 data 结构。"""
     content = item.get("content") or {}
     title = (
         item.get("title")
@@ -552,6 +549,8 @@ def analyze_ticker(symbol: str) -> dict[str, Any]:
 def run_monitor() -> None:
     """执行一次完整监控并推送简报。"""
     logger.info("=" * 50)
+    # 💡 测谎暗号加入，用事实说话！
+    logger.info("【验证暗号】全新防环境变量污染版本已全面上线！！！")
     logger.info("开始执行股票监控，标的: %s", WATCHLIST)
 
     results: list[dict[str, Any]] = []
