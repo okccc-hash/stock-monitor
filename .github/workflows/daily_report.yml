@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Check out repository code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
@@ -24,4 +24,5 @@ jobs:
 
     - name: Run script instantly
       run: |
-        python stock_monitor.py --now
+        # 💡 让云端强制改跑我们全新的、无污染的文件！
+        python stock_watch_8.py --now
