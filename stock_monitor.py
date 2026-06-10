@@ -97,7 +97,7 @@ def apply_env_overrides() -> None:
         VOLUME_SPIKE_MULTIPLIER = float(multiplier)
 
 
-apply_env_overrides()
+# apply_env_overrides()
 
 # =============================================================================
 # 日志
