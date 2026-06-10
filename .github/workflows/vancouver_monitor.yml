@@ -1,0 +1,28 @@
+name: Vancouver Heavy Stock Monitor
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-monitor-8-stocks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Base
+      uses: actions/checkout@v4
+
+    - name: Initialize Python Environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Critical Dependencies
+      run: |
+        pip install yfinance schedule requests
+
+    - name: Force Run 8 Stocks Right Now
+      run: |
+        # 💡 彻底抛弃一切过去的名字，强行指引它去敲我们新建的 stock_watch_8.py 的门！
+        python stock_watch_8.py --now
